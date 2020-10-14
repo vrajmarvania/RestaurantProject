@@ -1,0 +1,107 @@
+
+
+{% extends 'blank.html' %}{% load static %}
+{% block css %}
+.btn-secondary.dropdown-toggle {
+    color: #fff;
+    background-color: #6b6d7d;
+    border-color: #656776;
+    width: 890px;
+    border-radius: 20px;
+}
+
+
+.dropdown .dropdown-menu {
+    font-size: .85rem;
+width: 881px;
+color:#FFFFFF;
+    background-color: #5172d0;
+}
+{% endblock %}
+{% block body %}
+<div class="p-5">
+    <div class="text-center">
+        <h1 class="h4 text-gray-900 mb-4">Add New Restaurant!</h1>
+    </div>
+    <form class="user" method="post" action="AddRestaurant"><input type="hidden" name="csrfmiddlewaretoken"
+                                                            value="APmVXTz91uAofQGAYhTnzjJFtnPXgQJJqJCJzZeIYp6QIhkWtk55d7ocNBLXouCB">
+        <div class="form-group">
+            <input type="text" class="form-control form-control-user" name="RestaurantName" aria-describedby="emailHelp"
+                   placeholder="Enter RestaurantName ...">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control form-control-user" name="RestaurantAddress" placeholder="RestaurantAddress">
+        </div>
+
+        <button type="submit" class="btn btn-facebook btn-user btn-block">
+            Submit
+        </button>
+    </form>
+
+</div>
+<div class="p-5">
+    <div class="text-center">
+        <h1 class="h4 text-gray-900 mb-4">Delete Restaurant!</h1>
+    </div>
+    <form class="user" method="post" action="AddFood"><input type="hidden" name="csrfmiddlewaretoken"
+                                                            value="APmVXTz91uAofQGAYhTnzjJFtnPXgQJJqJCJzZeIYp6QIhkWtk55d7ocNBLXouCB">
+        <div class="form-group">
+
+         <div class="dropdown no-arrow mb-4">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Dropdown(Just click Me...!)
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
+
+                        {% for i in  Data %}
+
+                        <h4><a class="dropdown-item" href="DeleteR/{{i.RestaurantId}}">{{i.RestaurantName}}</a></h4>
+
+                        {% endfor  %}
+
+                    </div>
+                  </div>
+
+
+
+        </div>
+
+
+    </form>
+
+</div>
+
+
+<div class="p-5">
+    <div class="text-center">
+        <h1 class="h4 text-gray-900 mb-4">Update Restaurant!</h1>
+    </div>
+    <form class="user" method="post" action="AddRestaurant"><input type="hidden" name="csrfmiddlewaretoken"
+                                                            value="APmVXTz91uAofQGAYhTnzjJFtnPXgQJJqJCJzZeIYp6QIhkWtk55d7ocNBLXouCB">
+
+              <div class="form-group">
+        <label for="Restaurant">Choose a Restaurant:</label>
+
+<select name="Name" id="Name">
+    {% for i in Data %}
+  <option value="{{i.RestaurantName}}">{{i.RestaurantName}}</option>
+    {% endfor %}
+
+</select>
+         </div>
+        <div class="form-group">
+            <input type="text" class="form-control form-control-user" name="RestaurantName" aria-describedby="emailHelp"
+                   placeholder="Enter RestaurantName ...">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control form-control-user" name="RestaurantAddress" placeholder="RestaurantAddress">
+        </div>
+
+        <button type="submit" class="btn btn-facebook btn-user btn-block">
+            Submit
+        </button>
+    </form>
+
+</div>
+{% endblock%}

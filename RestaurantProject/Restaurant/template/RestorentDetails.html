@@ -1,0 +1,40 @@
+{% extends 'blank.html' %}
+
+{% block body %}
+<div class="mb-4">
+    <!--{% load static %}-->
+    <div class="card border-left-primary shadow h-100 py-2 mg-4">
+
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="h5 mb-0 font-weight-bold text-gray-800">Restorent Details:</div>
+                <br>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% for i in RestaurantData %}
+<div class="mb-4">
+
+
+    <div class="card mb-4 py-3 border-bottom-success h-100 py-2 mg-4">
+
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+
+                <div class="col mr-2">
+
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ i.RestaurantName }} Hotel</div>
+                </div>
+
+                <a href="Restorent\{{i.RestaurantId}}" class="btn btn-info btn-circle btn-lg">
+                    <i class="fas fa-info-circle"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

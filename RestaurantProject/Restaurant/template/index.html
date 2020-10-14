@@ -1,0 +1,114 @@
+{% extends 'blank.html' %}
+{% block title %}
+
+{% endblock %}
+{% block css %}
+.btn-secondary.dropdown-toggle {
+color: #fff;
+background-color: #6b6d7d;
+border-color: #656776;
+width: 890px;
+border-radius: 20px;
+}
+
+
+.dropdown .dropdown-menu {
+font-size: .85rem;
+width: 881px;
+color:#FFFFFF;
+background-color: #5172d0;
+}
+{% endblock %}
+{% block body %}
+<div class="row">{% csrf_token %}
+    <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"></div>
+                      <div class="h5 mb-0 font-weight-bold text-warning">Over All Sales info</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Today's Earnings
+                            (Dayly)
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">₹{{Ds}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Meekly)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">₹{{Ys}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Monthly)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">₹{{Ms}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="mb-4">
+    <div class="card border-left-primary shadow h-100 py-10">
+        <div class="card-body">
+            <div class="h5 mb-0 font-weight-bold text-gray-800">Best Selling Dishes info:</div>
+            <br>
+
+
+            {% for A in a %}
+
+            <h4 class="small font-weight-bold">{{ A.0}}<span class="float-right">{{A.1}}%</span></h4>
+            <div class="progress mb-4">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: {{A.1}}%" aria-valuenow="20"
+                     aria-valuemin="0" aria-valuemax="10"></div>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
