@@ -1,16 +1,17 @@
 <!doctype html>
 <html lang="en">
-  <head>
-      {% load static %}
+<head>
+    {% load static %}
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <title>invoice</title>
-      <style>
+    <style>
       a.dropdown-item {
     background-color: #4ea5ff;
     border-radius: 16px;
@@ -191,23 +192,25 @@ a.dropdown-item {
         page-break-before: always
     }
 }
-      </style>
-  </head>
-  <body>
 
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    </style>
+</head>
+<body>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <!--Author      : @arboshiki-->
 <div id="invoice">
- <a class="A" href="http://127.0.0.1:8000/index">Go Home</a>
+    <a class="A" href="http://127.0.0.1:8000/NewOrder/{{Name}}">Go Home</a>
     <div class="toolbar hidden-print">
         <div class="text-right">
 
             <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i>Get Invoice</button>
-<!--            <button class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>-->
+            <!--            <button class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>-->
         </div>
         <hr>
     </div>
@@ -229,38 +232,39 @@ a.dropdown-item {
                 </div>
                 <table border="0" cellspacing="0" cellpadding="0">
                     <thead>
-                        <tr>
+                    <tr>
 
-                            <th class="text-left" align="center">PRODUCTS</th>
-                            <th class="text-right" align="center">PRICE</th>
-                            <th class="text-right" align="center">QTY</th>
-                            <th class="text-right" align="center">TOTAL</th>
-                        </tr>
+                        <th class="text-left" align="center">PRODUCTS</th>
+                        <th class="text-right" align="center">PRICE</th>
+                        <th class="text-right" align="center">QTY</th>
+                        <th class="text-right" align="center">TOTAL</th>
+                    </tr>
                     </thead>
                     <tbody>
-            {%  for i in Data %}
-                        <tr>
+                    {% for i in Data %}
+                    <tr>
 
-                            <td class="text-left"><h3>{{i.ProductName}}</h3></td>
-                            <td class="unit">₹{{i.ProductPrice}}</td>
-                            <td class="qty">{{i.ProductQty}}</td>
-                            <td class="total">₹{{i.QP}}</td>
-                        </tr>
-              {% endfor %}
+                        <td class="text-left"><h3>{{i.ProductName}}</h3></td>
+                        <td class="unit">₹{{i.ProductPrice}}</td>
+                        <td class="qty">{{i.ProductQty}}</td>
+                        <td class="total">₹{{i.QP}}</td>
+                    </tr>
+                    {% endfor %}
                     </tbody>
                     <tfoot>
 
-                        <tr>
-                             <td ></td>
-                            <td ></td>
-                            <td>GRAND TOTAL</td>
-                            <td>₹{{Tprice}}</td>
-                        </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>GRAND TOTAL</td>
+                        <td>₹{{Tprice}}</td>
+                    </tr>
                     </tfoot>
                 </table>
 
-                    <div>NOTICE:</div>
-                    <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+
+                <div>NOTICE:</div>
+                <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
 
             </main>
             <footer>
@@ -269,10 +273,17 @@ a.dropdown-item {
         </div>
         <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
         <div></div>
+
+
+
     </div>
     <a class="A" href="http://127.0.0.1:8000/index">Home</a>
 </div>
-  <script> $('#printInvoice').click(function(){
+
+
+
+
+<script> $('#printInvoice').click(function(){
             Popup($('.invoice')[0].outerHTML);
             function Popup(data)
             {
@@ -281,12 +292,20 @@ a.dropdown-item {
             }
         });
 
+
+
 </script>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  </body>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
 </html>

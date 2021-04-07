@@ -73,5 +73,150 @@
 
 </div>
 
+   <div class="h5 mb-0 font-weight-bold text-gray-800">Best Selling Dishes info:</div>
+            <br>
+            <div class="col-md-2">
 
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-4">
+
+                    <div class="mb-6">
+                        <div class="card border-left-primary shadow h-100 py-10">
+                            <div class="card-body"><div class="h5 mb-0 font-weight-bold text-gray-800" style="">Top Food:</div><br>
+
+                                <canvas id="pie-chart" style="width: 100%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<br>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-4">
+                    <div class="mb-6">
+                        <div class="card border-left-primary shadow h-100 py-10">
+                            <div class="card-body"><div class="h5 mb-0 font-weight-bold text-gray-800">Restaurent Salse:</div><br>
+                                <canvas id="myChart" style="width: 100%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+<div class="mb-4">
+    <div class="card border-left-warning shadow h-100 py-2">
+        <div class="container-fluid">
+            <br>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">All restaurent Orders:</div>
+            <br>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="display table-responsive-xl" style="min-width: 845px">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Restorent Name</th>
+                                    <th scope="col">Delivery Date</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for i in Data %}
+
+
+                                <tr>
+                                    <td>{{i.OId}}</td>
+                                    <td>{{i.RestaurantName}}</td>
+                                    <td>{{i.ODate}}</td>
+                                    <td>₹{{i.TPrice}}</td>
+                                    <td><span class="badge mb-2 mb-xl-0 badge-success">Success</span>
+                                    </td>
+
+                                </tr>
+
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script>
+
+    var config = {
+      type: 'polarArea',
+      data: {
+        datasets: [{
+
+          data: {{ da|safe }},
+
+            backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(75, 192, 192)',
+      'rgb(255, 205, 86)',
+      'rgb(201, 203, 207)',
+      'rgb(54, 162, 235)'
+    ],
+          label: 'Population',
+        }],
+        labels: {{ la|safe }},
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+
+
+</script>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels:{{ la1|safe }},
+        datasets: [{
+            label: '# of Votes',
+            data:{{da1|safe}},
+            backgroundColor: [
+    '#003f5c',
+      '#58508d',
+      '#bc5090',
+      '#ff6361',
+      '#ffa600','#ffa600'
+    ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+</script>
+{% endblock %}
 {% endblock %}

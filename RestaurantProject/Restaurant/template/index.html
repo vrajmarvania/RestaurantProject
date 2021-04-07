@@ -10,7 +10,10 @@ border-color: #656776;
 width: 890px;
 border-radius: 20px;
 }
+.table-responsive {
+text-align: end;
 
+}
 
 .dropdown .dropdown-menu {
 font-size: .85rem;
@@ -22,20 +25,20 @@ background-color: #5172d0;
 {% block body %}
 <div class="row">{% csrf_token %}
     <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"></div>
-                      <div class="h5 mb-0 font-weight-bold text-warning">Over All Sales info</div>
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"></div>
+                        <div class="h5 mb-0 font-weight-bold text-warning">Over All Sales info</div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
+        </div>
+    </div>
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
@@ -59,7 +62,7 @@ background-color: #5172d0;
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Meekly)</div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Weekly)</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">₹{{Ys}}</div>
                     </div>
                     <div class="col-auto">
@@ -89,26 +92,175 @@ background-color: #5172d0;
 
 
 </div>
-<div class="mb-4">
-    <div class="card border-left-primary shadow h-100 py-10">
-        <div class="card-body">
+
+<!--1 one-->
+
+
             <div class="h5 mb-0 font-weight-bold text-gray-800">Best Selling Dishes info:</div>
             <br>
+            <div class="col-md-2">
 
-
-            {% for A in a %}
-
-            <h4 class="small font-weight-bold">{{ A.0}}<span class="float-right">{{A.1}}%</span></h4>
-            <div class="progress mb-4">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: {{A.1}}%" aria-valuenow="20"
-                     aria-valuemin="0" aria-valuemax="10"></div>
             </div>
 
-            {% endfor %}
+            <div class="row">
+
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+
+                    <div class="mb-6">
+                        <div class="card border-left-primary shadow h-100 py-10">
+                            <div class="card-body"><div class="h5 mb-0 font-weight-bold text-gray-800">Top Food:</div><br>
+
+                                <canvas id="pie-chart" style="width: 100%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                    <div class="mb-6">
+                        <div class="card border-left-primary shadow h-100 py-10">
+                            <div class="card-body"><div class="h5 mb-0 font-weight-bold text-gray-800">Restaurent Salse:</div><br>
+                                <canvas id="myChart" style="width: 100%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+
+        <div class="col-md-5">
+
         </div>
     </div>
 </div>
 
+
+<div class="mb-4">
+    <div class="card border-left-warning shadow h-100 py-2">
+        <div class="container-fluid">
+            <br>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">All restaurent Orders:</div>
+            <br>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="display table-responsive-xl" style="min-width: 845px">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Restorent Name</th>
+                                    <th scope="col">Delivery Date</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for i in ro %}
+
+
+                                <tr>
+                                    <td>{{i.OId}}</td>
+                                    <td>{{i.RestaurantName}}</td>
+                                    <td>{{i.ODate}}</td>
+                                    <td>₹{{i.TPrice}}</td>
+                                    <td><span class="badge mb-2 mb-xl-0 badge-success">Success</span>
+                                    </td>
+
+                                </tr>
+
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--1 one-->
+
+
+</div>
+</div>
+<!-- 2nd one-->
+
+
+</div>
+</div>
+</div>
+
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script>
+
+    var config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          backgroundColor: ['#d2e3c9', '#fcd1d0','#f3a3a4','#de425b','#488f31', '#78ab63', '#a5c796',],
+          label: 'Population'
+                  }],
+          labels: {{ labels|safe }}
+             },
+      options: {
+        responsive: true
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+
+
+</script>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels:  {{ labels1|safe }},
+        datasets: [{
+            label: '# of Votes',
+            data:  {{ data1|safe }},
+            backgroundColor: [
+    '#003f5c',
+      '#58508d',
+      '#bc5090',
+      '#ff6361',
+      '#ffa600','#ffa600'
+    ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+</script>
+{% endblock %}
 
 {% endblock %}
 

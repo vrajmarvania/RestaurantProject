@@ -1,7 +1,7 @@
 from datetime import date, datetime, timedelta
 
 from MySQLdb.constants.FIELD_TYPE import NULL
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.http import request, HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
@@ -9,7 +9,7 @@ from django.views import View
 from pyasn1.type.univ import Null
 from reportlab.pdfgen import canvas
 
-from .models import Register, RestaurantData, Food, Product, Ordert
+from .models import Admin_Register, RestaurantData, Food, Product, Ordert
 
 
 def index(request):
@@ -30,10 +30,10 @@ def index(request):
 
     today = str(date.today())
     Data = Ordert.objects.filter(ODate=today)
-    temp = 0.00
+    ds = 0.00
     for i in Data:
         if i.TPrice != '':
-            temp = temp + float(i.TPrice)
+            ds = ds + float(i.TPrice)
 
     # for year data
     one_week_ago = datetime.today() - timedelta(days=7)
@@ -48,12 +48,53 @@ def index(request):
 
     a = Product.objects.values_list('ProductName').annotate(count=Count('ProductName')).order_by('count')
     a = a.reverse()
-    print(type(a))
-    print(a[1][0])
-    # print(a.ProductName.ProductName)
-    params = {'RestaurantData': RD, 'Ds': temp, 'Ms': Ms, 'a': a, 'Ys': ans}
+    # print(a.ProductName)
+    Ro = Ordert.objects.all()
 
-    return render(request, 'index.html', params)
+
+
+    #
+    labels = []
+    data = []
+    a = Product.objects.values_list('ProductName').annotate(count=Count('ProductName')).order_by('count')
+    a = a.reverse()
+    print(a)
+    for i in a:
+        labels.append(i[0])
+        data.append(i[1])
+        print(i[0])
+        print(i[1])
+
+
+    # for city in queryset:
+    #     labels.append(city.name)
+    #     data.append(city.population)
+
+    labels2 = []
+    data2 = []
+
+    Data = RestaurantData.objects.all()
+    for a in Data:
+        labels2.append(a.RestaurantName)
+
+    print(labels2)
+
+    for R in labels2:
+        Data = Ordert.objects.filter(RestaurantName=R)
+        temp = 0.00
+        if Data != '':
+            for j in Data:
+                if j.TPrice != '':
+                    temp = temp + float(j.TPrice)
+        data2.append(temp)
+        print(temp)
+
+
+
+
+    params = {'ro':Ro,'RestaurantData': RD, 'Ds': ds, 'Ms': Ms, 'a': a, 'Ys': ans,'data':data,'labels':labels,'labels1': labels2,'data1': data2}
+    # print(params)
+    return render(request, 'index.html',params,)
 
 
 def register(request):
@@ -62,15 +103,15 @@ def register(request):
 
 def registerform(request):
     if request.method == "POST":
-        NameF = request.POST.get('FirstName', '')
-        NameL = request.POST.get('LastName', '')
-        Email = request.POST.get('InputEmail', '')
-        Password = request.POST.get('InputPassword', '')
-        PasswordC = request.POST.get('RepeatPassword', '')
-        register = Register(NameF=NameF, NameL=NameL, Email=Email, Password=Password, PasswordC=PasswordC)
+        Admin_NameF = request.POST.get('FirstName', '')
+        Admin_NameL = request.POST.get('LastName', '')
+        Admin_Email = request.POST.get('InputEmail', '')
+        Admin_Password = request.POST.get('InputPassword', '')
+        Admin_PasswordC = request.POST.get('RepeatPassword', '')
+        register = Admin_Register(Admin_NameF=Admin_NameF, Admin_NameL=Admin_NameL, Admin_Email=Admin_Email, Admin_Password=Admin_Password, Admin_PasswordC=Admin_PasswordC)
         register.save()
 
-    return render(request, 'register.html')
+    return render(request, 'login.html')
 
 
 def login(request):
@@ -79,12 +120,12 @@ def login(request):
 
 def loginc(request):
     if request.method == "POST":
-        Email = request.POST.get('InputEmail', '')
-        Password = request.POST.get('InputPassword', '')
-        register = Register.objects.filter(Email=Email, Password=Password)
-        print(Email)
+        Admin_Email = request.POST.get('InputEmail', '')
+        Admin_Password = request.POST.get('InputPassword', '')
+        register = Admin_Register.objects.filter(Admin_Email=Admin_Email, Admin_Password=Admin_Password)
+        print(Admin_Email)
         if len(register) > 0:
-            return redirect('http://127.0.0.1:8000/index')
+            return redirect('http://127.0.0.1:8000/a/index')
         else:
             return render(request, '404.html')
     return redirect('http://127.0.0.1:8000/index')
@@ -135,18 +176,49 @@ def Restorent(request, i):
     for l in O:
         if l.TPrice != '':
             ans = ans + float(l.TPrice)
-    # print(ans)
+    print(ans)
+    # print("helo")
 
-    params = {'i': i, 'T': temp, 'ans': ans, 'Ms': Ms}
+
+
+ # for Restorent dishis data
+    hd=[]
+    labels = []
+    data = []
+    a=Food.objects.filter(RestaurantId=R)
+    for z in a:
+      hd.append(z.FoodName)
+    c= Product.objects.values_list('ProductName').annotate(count=Count('ProductName')).order_by('count')
+    for a in range(len(c)):
+        for m in range(len(hd)):
+            if(c[a][0]==hd[m]):
+               labels.append(c[a][0])
+               data.append(c[a][1])
+
+    l2 = []
+    d1 = []
+    c = Ordert.objects.filter(RestaurantName=R).values_list('ODate', ).annotate(Sum('TPrice'))
+    for c1 in c:
+        print(c1[0])
+        l2.append(str(c1[0]))
+        d1.append(c1[1])
+    print(l2)
+    print(d1)
+
+    Data = Ordert.objects.filter(RestaurantName=R)
+
+
+    params = {'i': i, 'T': temp, 'ans': ans, 'Ms': Ms,'da':data,'la':labels,'la1':l2,'da1':d1,'Data':Data}
 
     return render(request, 'Restorent.html', params)
 
 
 def AddRestaurant(request):
     if request.method == "POST":
-        RestaurantName = request.POST.get('RestaurantName', '')
-        RestaurantAddress = request.POST.get('RestaurantAddress', '')
-        restaurantData = RestaurantData(RestaurantAddress=RestaurantAddress, RestaurantName=RestaurantName)
+        RestaurantName = request.POST.get('RestaurantName')
+        RestaurantAddress = request.POST.get('RestaurantAddress')
+        RestaurantCode = request.POST.get('RestaurantCode')
+        restaurantData = RestaurantData(RestaurantAddress=RestaurantAddress, RestaurantName=RestaurantName,ucode=RestaurantCode)
         restaurantData.save()
         return render(request, 'index.html')
     Data = RestaurantData.objects.all()
@@ -181,7 +253,8 @@ def Order(request):
 
 def NewOrder(request, i):
     j = Food.objects.filter(RestaurantId=i)
-    params = {'Foods': j, 'Restorent': i}
+    Ro = Ordert.objects.all(RestaurantName=i)
+    params = {'Foods': j, 'Restorent': i,'Ro':Ro}
 
     return render(request, 'NewOrder.html', params)
 
@@ -189,6 +262,7 @@ def NewOrder(request, i):
 def Norder(request, i):
     if request.method == "POST":
         x = 0
+
         data = []
         j = Food.objects.filter(RestaurantId=i)
         for m in j:
@@ -211,10 +285,12 @@ def Norder(request, i):
 
                 if x == 0:
                     o = Ordert(TPrice=Tpric, RestaurantName=i)
+                    print(o)
                     o.save()
                     x = 1
                 if x != 0:
                     o.Allproduct.add(p)
+
         params = {'Data': data, 'Tprice': Tpric, 'Date': today, 'Name': i}
         print(params)
     return render(request, 'Invoice.html', params)
@@ -271,7 +347,6 @@ def some_view(request):
 
 def RestorentDetails(request):
     RD = RestaurantData.objects.all()
-
     # For Month data
 
     today = date.today()
@@ -306,10 +381,33 @@ def RestorentDetails(request):
 
     a = Product.objects.values_list('ProductName').annotate(count=Count('ProductName')).order_by('count')
     courses = a
-    print(a[1][0])
+
     # print(a.ProductName.ProductName)
     params = {'RestaurantData': RD, 'Ds': temp, 'Ms': Ms, 'a': a, 'Ys': ans}
 
     return render(request, 'RestorentDetails.html', params)
 
 # RestorentDetails
+
+
+def test(request):
+    l2=[]
+    d1= []
+    c = Ordert.objects.filter(RestaurantName='lol').values_list('ODate',).annotate(Sum('TPrice'))
+    for c1 in c:
+      print(c1[0])
+      l2.append(str(c1[0]))
+      d1.append(c1[1])
+    print(l2)
+    print(d1)
+
+
+
+
+
+
+    return render(request, 'test.html', {
+        'labels': l2,
+        'data': d1,
+    })
+

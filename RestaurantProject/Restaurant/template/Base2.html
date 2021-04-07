@@ -21,7 +21,7 @@
     <style>{% block css %}{% endblock %}
   a.a{
 
-        background-color: #4d72de;
+        background-color: #4d72de
     border-radius: 25px;
     color: #FFFFFF;
     width: 100px;
@@ -38,7 +38,13 @@
 
     border-radius: 1.35rem;
 }
-
+.bg-gradient-primary {
+    background-color: #ff0000;
+    background-image: linear-gradient(
+180deg
+,#000000 10%,#ff0000 100%);
+    background-size: cover;
+}
     </style>
 </head>
 
@@ -55,33 +61,8 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="http://127.0.0.1:8000/a/index">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
 
 
-
-        <hr class="sidebar-divider">
-        <li class="nav-item">
-            <a class="nav-link" href="http://127.0.0.1:8000/a/AddRestaurant">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Restaurant Settings</span></a>
-        </li>
-        <hr class="sidebar-divider">
-        <li class="nav-item">
-            <a class="nav-link" href="http://127.0.0.1:8000/a/AddFood">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Food Settings</span></a>
-        </li>
-        <hr class="sidebar-divider">
-        <li class="nav-item">
-            <a class="nav-link" href="http://127.0.0.1:8000/a/RestorentDetails">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Restorent Reports</span></a>
-        </li>
-        <hr class="sidebar-divider">
 
 
         <div class="text-center d-none d-md-inline">
@@ -131,7 +112,7 @@
                     <!-- Nav Item - Messages -->
 
                     <div class="topbar-divider d-none d-sm-block"></div>
-                    <a class="a" href="http://127.0.0.1:8000/a" data-toggle="modal" data-target="#logoutModal">
+                    <a class="a" href="http://127.0.0.1:8000/" data-toggle="modal" data-target="#logoutModal">
                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-black-400"></i>
                         Logout
                     </a>
@@ -188,29 +169,23 @@
         </div>
     </div>
 </div>
-{% block js %}{% endblock %}
+
 <!-- Bootstrap core JavaScript-->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
 <!-- Core plugin JavaScript-->
 <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
 <!-- Custom scripts for all pages-->
 <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
 <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
 <script src="{% static 'js/demo/chart-bar-demo.js' %}"></script>
-
+{% block js %}{% endblock %}
 </body>
 
 </html>
-
-
-
-
-
 
 
 

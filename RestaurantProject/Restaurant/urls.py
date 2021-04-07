@@ -14,14 +14,13 @@ urlpatterns = [
     path('loginc',views.loginc,name='index'),
     path('AddRestaurant',views.AddRestaurant,name='index'),
     path('AddFood',views.AddFood,name='index'),
-    path('Order',views.Order,name='index'),
-    path('NewOrder/<str:i>',views.NewOrder,name='index'),
-    path('Norder/<str:i>',views.Norder,name='index'),
     path('DeleteF/<int:i>',views.DeleteF,name='index'),
     path('DeleteR/<int:i>',views.DeleteR,name='index'),
     path('UpdateF',views.UpdateF,name='index'),
     path('UpdateR',views.UpdateR,name='index'),
     path('RestorentDetails',views.RestorentDetails,name='index'),
+
+
 
 
 

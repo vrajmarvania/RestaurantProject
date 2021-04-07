@@ -9,7 +9,11 @@
     width: 890px;
     border-radius: 20px;
 }
-
+button#dropdownMenuButton {
+    width: -webkit-fill-available;
+}.dropdown-menu.show {
+    width: -webkit-fill-available;
+}
 
 .dropdown .dropdown-menu {
     font-size: .85rem;
@@ -20,12 +24,22 @@ color:#FFFFFF;
 {% endblock %}
 
 {% block body %}
-<div class="p-5">
-    <div class="text-center">
-        <h1 class="h4 text-gray-900 mb-4">Add New Food!</h1>
+
+
+
+
+
+
+
+ <div class="col-xl-12 col-md-12 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="">
+
+        <div class="h5 mb-0 font-weight-bold text-gray-800">Add New Food!:</div><br>
     </div>
     <form class="user" method="post" action="AddFood"><input type="hidden" name="csrfmiddlewaretoken"
-                                                            value="APmVXTz91uAofQGAYhTnzjJFtnPXgQJJqJCJzZeIYp6QIhkWtk55d7ocNBLXouCB">
+                                                            value="APmVXTz91uAofQGAYhTnzjJFtnPXgQJJqJCJzZeIYp6QIhkWtk55d7ocNBLXouCB">{% csrf_token %}
         <div class="form-group">
             <input type="text" class="form-control form-control-user" name="FoodName" aria-describedby="emailHelp"
                    placeholder="Enter FoodName ...">
@@ -44,30 +58,39 @@ color:#FFFFFF;
     </form>
 
 </div>
-<div class="p-5">
-    <div class="text-center">
-        <h1 class="h4 text-gray-900 mb-4">Delete Food!</h1>
-    </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    <div class="col-xl-12 col-md-12 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+ <div class=""><div class="h5 mb-0 font-weight-bold text-gray-800">Delete Food!:</div><br>
+
     <form class="user" method="post" action="AddFood"><input type="hidden" name="csrfmiddlewaretoken"
-                                                            value="APmVXTz91uAofQGAYhTnzjJFtnPXgQJJqJCJzZeIYp6QIhkWtk55d7ocNBLXouCB">
+                                                             value="APmVXTz91uAofQGAYhTnzjJFtnPXgQJJqJCJzZeIYp6QIhkWtk55d7ocNBLXouCB">
         <div class="form-group">
 
-         <div class="dropdown no-arrow mb-4">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Dropdown(Just click Me...!)
-                    </button>
+            <div class="dropdown no-arrow mb-4">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown(Just click Me...!)
+                </button>
 
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
 
-                        {% for i in  Data %}
+                    {% for i in Data %}
 
-                        <h4><a class="dropdown-item" href="DeleteF/{{i.FoodId}}">{{i.FoodName}}</a></h4>
+                    <h4><a class="dropdown-item" href="DeleteF/{{i.FoodId}}">{{i.FoodName}}</a></h4>
 
-                        {% endfor  %}
+                    {% endfor %}
 
-                    </div>
-                  </div>
-
+                </div>
+            </div>
 
 
         </div>
@@ -76,34 +99,55 @@ color:#FFFFFF;
     </form>
 
 </div>
-<div class="p-5">
-    <div class="text-center">
-        <h1 class="h4 text-gray-900 mb-4">update Food!</h1>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="col-xl-12 col-md-12 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+ <div class="h5 mb-0 font-weight-bold text-gray-800">update Food!</div><br>
+
+<div class="">
+
+    <div class="">
+
+
     </div>
     <form class="user" method="post" action="UpdateF"><input type="hidden" name="csrfmiddlewaretoken"
-                                                            value="APmVXTz91uAofQGAYhTnzjJFtnPXgQJJqJCJzZeIYp6QIhkWtk55d7ocNBLXouCB">
+                                                             value="APmVXTz91uAofQGAYhTnzjJFtnPXgQJJqJCJzZeIYp6QIhkWtk55d7ocNBLXouCB">
 
 
-         <div class="form-group">
-        <label for="cars">Choose a Food:</label>
+        <div class="form-group">
+            <label for="cars">Choose a Food:</label>
 
-<select name="Name" id="Name">
-    {% for i in Data %}
-  <option value="{{i.FoodName}}">{{i.FoodName}}</option>
-    {% endfor %}
+            <select name="Name" id="Name">
+                {% for i in Data %}
+                <option value="{{i.FoodName}}">{{i.FoodName}}</option>
+                {% endfor %}
 
-</select>
-         </div>
+            </select>
+        </div>
         <div class="form-group">
             <input type="text" class="form-control form-control-user" name="FoodName" aria-describedby="emailHelp"
                    placeholder="Enter FoodName ...">
         </div>
-         <div class="form-group">
+        <div class="form-group">
             <input type="text" class="form-control form-control-user" name="FoodPrice" aria-describedby="emailHelp"
                    placeholder="Enter FoodPrice ...">
         </div>
         <div class="form-group">
-            <input type="text" class="form-control form-control-user" name="RestaurantName" placeholder="RestaurantName">
+            <input type="text" class="form-control form-control-user" name="RestaurantName"
+                   placeholder="RestaurantName">
         </div>
 
         <button type="submit" class="btn btn-facebook btn-user btn-block">
@@ -112,4 +156,12 @@ color:#FFFFFF;
     </form>
 
 </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
 {% endblock%}

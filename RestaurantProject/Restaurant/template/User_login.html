@@ -18,7 +18,21 @@
 
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css'%}" rel="stylesheet">
-
+    <style>.bg-gradient-primary {
+    background-color: #ff0000;
+    background-image: linear-gradient(
+180deg
+,#000000 10%,#ff0000 100%);
+    background-size: cover;
+}select {
+    font-size: .8rem;
+    border-radius: 10rem;
+    padding: 1.1rem 1rem;
+    word-wrap: normal;
+    width: 100%;
+    margin-bottom: 5%;
+}
+    </style>
 </head>
 
 <body class="bg-gradient-primary">
@@ -38,9 +52,20 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back Admin!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">User Welcome Back!</h1>
                                 </div>
                                 <form class="user" method="post" action="loginc">{% csrf_token %}
+
+
+                                    <select name="name" id="name" class="form-select" aria-label="Default select example">
+                                        {% for i in RestaurantData %}
+                                        <option   value="{{i.RestaurantName}}">
+                                            {{i.RestaurantName}}
+                                        </option>
+                                        {% endfor %}
+
+                                    </select>
+
                                     <div class="form-group">
                                         <input type="email" class="form-control form-control-user" name="InputEmail"
                                                aria-describedby="emailHelp" placeholder="Enter Email Address...">
@@ -49,18 +74,21 @@
                                         <input type="password" class="form-control form-control-user"
                                                name="InputPassword" placeholder="Password">
                                     </div>
-
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user"
+                                               name="code" id="RCode" placeholder="Code">
+                                    </div>
                                     <button type="submit" class="btn btn-facebook btn-user btn-block">
                                         Login
                                     </button>
                                 </form>
                                 <hr>
-
+                                {{i.RestaurantName}}
                                 <div class="text-center">
-                                    <a class="small" href="register">Create an Admin Account!</a>
+                                    <a class="small" href="http://127.0.0.1:8000/User_register">Create an User Account!</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="http://127.0.0.1:8000/">User login !</a>
+                                    <a class="small" href="http://127.0.0.1:8000/a/">Admin login!</a>
                                 </div>
                             </div>
                         </div>

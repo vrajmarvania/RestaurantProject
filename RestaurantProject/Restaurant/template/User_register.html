@@ -18,7 +18,13 @@
 
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css'%}" rel="stylesheet">
-
+  <style>.bg-gradient-primary {
+    background-color: #ff0000;
+    background-image: linear-gradient(
+180deg
+,#000000 10%,#ff0000 100%);
+    background-size: cover;
+}</style>
 </head>
 
 <body class="bg-gradient-primary">
@@ -33,9 +39,9 @@
                 <div class="col-lg-7">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Create an Admin Account!</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Create an User Account!</h1>
                         </div>
-                        <form class="user" action="registerform" method="POST">{% csrf_token %}
+                        <form class="user" action="User_registerform" method="POST">{% csrf_token %}
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="text" class="form-control form-control-user" name="FirstName"
