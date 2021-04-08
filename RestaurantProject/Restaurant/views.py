@@ -24,7 +24,6 @@ def index(request):
     for i in Data:
         if i.TPrice != '':
             Ms = Ms + float(i.TPrice)
-            # print(i.TPrice)
 
     # for Day data
 
@@ -48,7 +47,6 @@ def index(request):
 
     a = Product.objects.values_list('ProductName').annotate(count=Count('ProductName')).order_by('count')
     a = a.reverse()
-    # print(a.ProductName)
     Ro = Ordert.objects.all()
 
 
@@ -58,12 +56,10 @@ def index(request):
     data = []
     a = Product.objects.values_list('ProductName').annotate(count=Count('ProductName')).order_by('count')
     a = a.reverse()
-    print(a)
     for i in a:
         labels.append(i[0])
         data.append(i[1])
-        print(i[0])
-        print(i[1])
+
 
 
     # for city in queryset:
@@ -77,7 +73,7 @@ def index(request):
     for a in Data:
         labels2.append(a.RestaurantName)
 
-    print(labels2)
+
 
     for R in labels2:
         Data = Ordert.objects.filter(RestaurantName=R)
@@ -87,13 +83,12 @@ def index(request):
                 if j.TPrice != '':
                     temp = temp + float(j.TPrice)
         data2.append(temp)
-        print(temp)
+
 
 
 
 
     params = {'ro':Ro,'RestaurantData': RD, 'Ds': ds, 'Ms': Ms, 'a': a, 'Ys': ans,'data':data,'labels':labels,'labels1': labels2,'data1': data2}
-    # print(params)
     return render(request, 'index.html',params,)
 
 
@@ -123,7 +118,6 @@ def loginc(request):
         Admin_Email = request.POST.get('InputEmail', '')
         Admin_Password = request.POST.get('InputPassword', '')
         register = Admin_Register.objects.filter(Admin_Email=Admin_Email, Admin_Password=Admin_Password)
-        print(Admin_Email)
         if len(register) > 0:
             return redirect('http://127.0.0.1:8000/a/index')
         else:
@@ -155,7 +149,6 @@ def Restorent(request, i):
         for j in Data:
             if j.TPrice != '':
                 temp = temp + float(j.TPrice)
-    # print(temp)
 
     # Month
     today = date.today()
@@ -165,7 +158,7 @@ def Restorent(request, i):
     for k in Data:
         if k.TPrice != '':
             Ms = Ms + float(k.TPrice)
-            # print(i.TPrice)
+
 
     # for weeek
 
@@ -176,8 +169,8 @@ def Restorent(request, i):
     for l in O:
         if l.TPrice != '':
             ans = ans + float(l.TPrice)
-    print(ans)
-    # print("helo")
+
+
 
 
 
@@ -199,11 +192,9 @@ def Restorent(request, i):
     d1 = []
     c = Ordert.objects.filter(RestaurantName=R).values_list('ODate', ).annotate(Sum('TPrice'))
     for c1 in c:
-        print(c1[0])
         l2.append(str(c1[0]))
         d1.append(c1[1])
-    print(l2)
-    print(d1)
+
 
     Data = Ordert.objects.filter(RestaurantName=R)
 
@@ -285,14 +276,12 @@ def Norder(request, i):
 
                 if x == 0:
                     o = Ordert(TPrice=Tpric, RestaurantName=i)
-                    print(o)
                     o.save()
                     x = 1
                 if x != 0:
                     o.Allproduct.add(p)
 
         params = {'Data': data, 'Tprice': Tpric, 'Date': today, 'Name': i}
-        print(params)
     return render(request, 'Invoice.html', params)
 
 
@@ -356,7 +345,7 @@ def RestorentDetails(request):
     for i in Data:
         if i.TPrice != '':
             Ms = Ms + float(i.TPrice)
-            # print(i.TPrice)
+
 
     # for Day data
 
@@ -382,7 +371,6 @@ def RestorentDetails(request):
     a = Product.objects.values_list('ProductName').annotate(count=Count('ProductName')).order_by('count')
     courses = a
 
-    # print(a.ProductName.ProductName)
     params = {'RestaurantData': RD, 'Ds': temp, 'Ms': Ms, 'a': a, 'Ys': ans}
 
     return render(request, 'RestorentDetails.html', params)
@@ -395,11 +383,9 @@ def test(request):
     d1= []
     c = Ordert.objects.filter(RestaurantName='lol').values_list('ODate',).annotate(Sum('TPrice'))
     for c1 in c:
-      print(c1[0])
       l2.append(str(c1[0]))
       d1.append(c1[1])
-    print(l2)
-    print(d1)
+
 
 
 
